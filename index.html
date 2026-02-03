@@ -3,66 +3,210 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cash y Calma — Verificación Oficial</title>
+  <title>Cash y Calma — Verified Original</title>
 
-  <!-- Meta confianza -->
-  <meta name="description" content="Página oficial de verificación Cash y Calma. Prenda auténtica y original." />
+  <meta name="description" content="Sistema oficial de autenticidad Cash y Calma." />
   <meta name="theme-color" content="#0b0b10" />
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- FUENTE -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui;
+      background:#0b0b10;
+      color:#f5f5f7;
+      overflow-x:hidden;
+    }
+
+    /* BACKGROUND FX */
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(600px 300px at 20% 10%, rgba(139,92,246,.35), transparent 60%),
+        radial-gradient(500px 300px at 80% 20%, rgba(167,139,250,.25), transparent 60%),
+        #0b0b10;
+    }
+
+    .scan-line{
+      position:fixed;
+      top:-30%;
+      left:0;
+      width:100%;
+      height:40%;
+      background:linear-gradient(to bottom, transparent, rgba(139,92,246,.25), transparent);
+      animation:scan 6s linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes scan{
+      0%{top:-40%}
+      100%{top:140%}
+    }
+
+    .container{
+      max-width:420px;
+      margin:auto;
+      min-height:100vh;
+      padding:26px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:26px;
+    }
+
+    /* HEADER */
+    .brand{
+      text-align:center;
+      animation:fadeUp 1.2s ease;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:32px;
+      font-weight:900;
+      letter-spacing:2px;
+    }
+
+    .brand span{
+      display:inline-block;
+      margin-top:6px;
+      font-size:12px;
+      letter-spacing:2px;
+      color:#c4b5fd;
+    }
+
+    /* VIDEO */
+    .video-box{
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 30px 90px rgba(139,92,246,.35);
+      animation:fadeUp 1.6s ease;
+    }
+
+    video{width:100%;display:block}
+
+    /* CARD */
+    .card{
+      background:rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:22px;
+      padding:22px;
+      text-align:center;
+      animation:fadeUp 2s ease;
+      backdrop-filter:blur(14px);
+    }
+
+    .icon{
+      font-size:38px;
+      color:#8b5cf6;
+      margin-bottom:6px;
+    }
+
+    .card h2{
+      margin:0;
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .card p{
+      margin:10px 0 18px;
+      font-size:14px;
+      color:#ddd;
+      line-height:1.5;
+    }
+
+    .meta{
+      display:grid;
+      gap:10px;
+      font-size:13px;
+    }
+
+    .meta div{
+      display:flex;
+      justify-content:space-between;
+      padding:10px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .meta span{color:#aaa}
+    .ok{color:#22c55e;font-weight:700}
+
+    /* BRAND MESSAGE */
+    .message{
+      text-align:center;
+      font-size:13px;
+      color:#c4b5fd;
+      letter-spacing:.4px;
+      animation:fadeUp 2.4s ease;
+    }
+
+    footer{
+      margin-top:auto;
+      text-align:center;
+      font-size:11px;
+      color:#888;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(18px)}
+      to{opacity:1; transform:none}
+    }
+  </style>
 </head>
 
 <body>
+  <div class="bg"></div>
+  <div class="scan-line"></div>
 
   <main class="container">
 
-    <!-- ENCABEZADO -->
     <header class="brand">
       <h1>CASH Y CALMA</h1>
-      <span class="badge">✔ Verified Original</span>
+      <span>VERIFIED ORIGINAL</span>
     </header>
 
-    <!-- VIDEO -->
-    <section class="video-section">
-      <video autoplay muted loop playsinline preload="auto">
-        <source src="verified.mp4" type="video/mp4" />
-        Tu navegador no soporta video.
+    <div class="video-box">
+      <video autoplay muted loop playsinline>
+        <source src="verified.mp4" type="video/mp4">
       </video>
-    </section>
+    </div>
 
-    <!-- ESTADO -->
-    <section class="status-card">
-      <div class="status-icon">✔</div>
+    <section class="card">
+      <div class="icon">✔</div>
       <h2>Prenda auténtica</h2>
       <p>
-        Esta prenda ha sido verificada como <b>original</b> de la marca
-        <b>Cash y Calma</b>.
+        Esta prenda forma parte de una edición limitada y ha sido
+        verificada mediante tecnología NFC segura.
       </p>
 
-      <div class="details">
-        <div><span>ID único</span><b id="itemId">—</b></div>
+      <div class="meta">
+        <div><span>ID Único</span><b id="itemId">—</b></div>
         <div><span>Estado</span><b class="ok">Verificada</b></div>
         <div><span>Sistema</span><b>NFC Secure</b></div>
       </div>
     </section>
 
-    <!-- MENSAJE MARCA -->
-    <section class="brand-message">
-      <p>
-        Cash y Calma representa equilibrio, control y autenticidad.
-        Cada prenda es parte de una edición limitada.
-      </p>
-    </section>
+    <div class="message">
+      Get Paid. Stay Calm.
+    </div>
 
-    <!-- FOOTER -->
     <footer>
-      © <span id="year"></span> Cash y Calma · Todos los derechos reservados
+      © <span id="year"></span> Cash y Calma
     </footer>
 
   </main>
 
-  <!-- SCRIPT -->
-  <script src="verify.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const id = new URLSearchParams(window.location.search).get("id") || "CYC-UNKNOWN";
+    document.getElementById("itemId").textContent = id;
+  </script>
 </body>
 </html>
