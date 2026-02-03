@@ -2,47 +2,67 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cash y Calma — Verificación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cash y Calma — Verificación Oficial</title>
 
+  <!-- Meta confianza -->
+  <meta name="description" content="Página oficial de verificación Cash y Calma. Prenda auténtica y original." />
+  <meta name="theme-color" content="#0b0b10" />
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <main class="wrap">
+  <main class="container">
 
-    <!-- LOGO -->
-    <div class="logo">
+    <!-- ENCABEZADO -->
+    <header class="brand">
       <h1>CASH Y CALMA</h1>
-      <p>Verified Original</p>
-    </div>
+      <span class="badge">✔ Verified Original</span>
+    </header>
 
     <!-- VIDEO -->
-    <div class="video-box">
-     <video autoplay muted loop playsinline>
-  <source src="verified.mov" type="video/quicktime">
-</video>
-    </div>
+    <section class="video-section">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="verified.mp4" type="video/mp4" />
+        Tu navegador no soporta video.
+      </video>
+    </section>
 
-    <!-- RESULTADO -->
-    <div class="card" id="result">
-      <h2>✔ Prenda auténtica</h2>
-      <p>Este producto ha sido verificado como original de <b>Cash y Calma</b>.</p>
+    <!-- ESTADO -->
+    <section class="status-card">
+      <div class="status-icon">✔</div>
+      <h2>Prenda auténtica</h2>
+      <p>
+        Esta prenda ha sido verificada como <b>original</b> de la marca
+        <b>Cash y Calma</b>.
+      </p>
 
-      <div class="meta">
-        <div><span>ID:</span> <b id="itemId">—</b></div>
-        <div><span>Estado:</span> <b class="ok">Verificado</b></div>
-        <div><span>Marca:</span> Cash y Calma</div>
+      <div class="details">
+        <div><span>ID único</span><b id="itemId">—</b></div>
+        <div><span>Estado</span><b class="ok">Verificada</b></div>
+        <div><span>Sistema</span><b>NFC Secure</b></div>
       </div>
-    </div>
+    </section>
+
+    <!-- MENSAJE MARCA -->
+    <section class="brand-message">
+      <p>
+        Cash y Calma representa equilibrio, control y autenticidad.
+        Cada prenda es parte de una edición limitada.
+      </p>
+    </section>
 
     <!-- FOOTER -->
     <footer>
-      © <span id="year"></span> Cash y Calma — All rights reserved
+      © <span id="year"></span> Cash y Calma · Todos los derechos reservados
     </footer>
 
   </main>
 
+  <!-- SCRIPT -->
   <script src="verify.js"></script>
 </body>
 </html>
