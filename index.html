@@ -2,236 +2,197 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CASH Y CALMA — AUTHENTICATION PROTOCOL</title>
-
-<meta name="theme-color" content="#050508">
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cash y Calma — Verificación</title>
 
 <style>
-*{box-sizing:border-box}
+:root{
+  --purple:#8b5cf6;
+  --purple2:#a78bfa;
+  --bg:#050508;
+}
+
 html,body{
   margin:0;
   min-height:100%;
-  background:#050508;
+  background:var(--bg);
   color:#fff;
-  font-family:Inter,system-ui;
+  font-family:system-ui,Inter;
   overflow-x:hidden;
-  overflow-y:auto;
 }
 
-/* ───── BACKGROUND COSMIC CORE ───── */
-.bg-core{
-  position:fixed; inset:0; z-index:-5;
+body{
   background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(139,92,246,.45), transparent 60%),
-    radial-gradient(800px 500px at 80% 30%, rgba(167,139,250,.25), transparent 60%),
-    #050508;
+    radial-gradient(circle at top, rgba(139,92,246,.25), transparent 60%),
+    var(--bg);
 }
 
-.particles{
-  position:fixed; inset:0; z-index:-4;
-  background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:.2;
-  animation:drift 160s linear infinite;
-}
-@keyframes drift{
-  from{background-position:0 0}
-  to{background-position:4000px 3000px}
-}
-
-/* ───── SCAN ENERGY ───── */
-.scan-energy{
+/* PARTICULAS */
+canvas{
   position:fixed;
-  top:-60%;
-  left:-10%;
-  width:120%;
-  height:50%;
-  background:linear-gradient(to bottom, transparent, rgba(139,92,246,.45), transparent);
-  animation:scan 4.5s ease-in-out infinite;
-  z-index:-3;
-}
-@keyframes scan{
-  0%{top:-70%}
-  50%{top:45%}
-  100%{top:170%}
-}
-
-/* ───── LAYOUT ───── */
-.wrap{
-  max-width:420px;
-  margin:auto;
-  min-height:100vh;
-  padding:30px 18px;
-  display:flex;
-  flex-direction:column;
-  gap:30px;
-}
-
-/* ───── HEADER ───── */
-.brand{
-  text-align:center;
-  font-family:Orbitron;
-  letter-spacing:4px;
-}
-.brand h1{
-  margin:0;
-  font-size:32px;
-  font-weight:900;
-  background:linear-gradient(90deg,#fff,#a78bfa,#8b5cf6);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.brand span{
-  display:block;
-  margin-top:6px;
-  font-size:11px;
-  color:#c4b5fd;
-}
-
-/* ───── VIDEO PORTAL ───── */
-.portal{
-  position:relative;
-  border-radius:28px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.25);
-  box-shadow:
-    0 0 60px rgba(139,92,246,.45),
-    inset 0 0 80px rgba(139,92,246,.2);
-}
-.portal::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:30px;
-  background:linear-gradient(135deg,rgba(139,92,246,.8),transparent,rgba(167,139,250,.8));
-  opacity:.25;
+  inset:0;
+  z-index:0;
   pointer-events:none;
 }
-video{width:100%;display:block}
 
-/* ───── AUTH CORE ───── */
-.core{
+/* CONTENIDO */
+.main{
   position:relative;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(22px);
-  border-radius:30px;
-  padding:26px;
-  border:1px solid rgba(255,255,255,.22);
+  z-index:2;
+  padding:60px 20px;
+  max-width:420px;
+  margin:auto;
   text-align:center;
 }
-.seal{
-  width:86px;height:86px;border-radius:50%;
-  margin:0 auto 10px;
-  background:
-    radial-gradient(circle,#a78bfa,#4c1d95);
-  display:flex;align-items:center;justify-content:center;
-  font-size:34px;
+
+/* VIDEO SELLO */
+.video-wrap{
+  width:260px;
+  height:260px;
+  margin:0 auto 30px;
+  border-radius:50%;
+  overflow:hidden;
   box-shadow:
-    0 0 40px rgba(139,92,246,.9),
-    inset 0 0 30px rgba(255,255,255,.3);
+    0 0 40px rgba(139,92,246,.6),
+    inset 0 0 30px rgba(255,255,255,.2);
+  position:relative;
 }
-.core h2{
-  margin:6px 0;
-  font-size:24px;
-  font-weight:900;
-  letter-spacing:1px;
+
+.video-wrap::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.15);
+  animation:pulse 2.5s infinite;
 }
-.core p{
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(139,92,246,.6)}
+  100%{box-shadow:0 0 40px rgba(139,92,246,0)}
+}
+
+video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* TEXTO */
+h1{
+  font-size:26px;
+  margin-bottom:10px;
+}
+
+.status{
+  margin-top:10px;
+  font-size:15px;
+  color:#a78bfa;
+}
+
+.card{
+  margin-top:30px;
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+}
+
+.small{
   font-size:13px;
-  color:#ddd;
-  line-height:1.6;
+  opacity:.8;
 }
 
-/* ───── DATA GRID ───── */
-.data{
-  margin-top:20px;
-  display:grid;
-  gap:14px;
-}
-.data div{
-  display:flex;
-  justify-content:space-between;
-  padding:14px 18px;
-  border-radius:18px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.14);
-  font-size:13px;
-}
-.data span{color:#aaa}
-.ok{color:#22c55e;font-weight:900}
-
-/* ───── MANTRA ───── */
-.mantra{
-  text-align:center;
-  font-family:Orbitron;
-  font-size:14px;
-  letter-spacing:3px;
-  color:#c4b5fd;
-  opacity:.95;
+/* SCAN LINE */
+.scan{
+  position:fixed;
+  top:-20%;
+  left:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent);
+  animation:scan 4s infinite;
+  z-index:3;
+  pointer-events:none;
 }
 
-/* ───── FOOTER ───── */
-footer{
-  margin-top:auto;
-  text-align:center;
-  font-size:10px;
-  color:#777;
+@keyframes scan{
+  0%{top:-20%}
+  100%{top:120%}
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg-core"></div>
-<div class="particles"></div>
-<div class="scan-energy"></div>
+<canvas id="particles"></canvas>
+<div class="scan"></div>
 
-<main class="wrap">
-
-<header class="brand">
-  <h1>CASH Y CALMA</h1>
-  <span>AUTHENTICATION PROTOCOL</span>
-</header>
-
-<section class="portal">
-  <video autoplay muted loop playsinline>
-    <source src="verified.mp4" type="video/mp4">
-  </video>
-</section>
-
-<section class="core">
-  <div class="seal">✔</div>
-  <h2>ORIGINAL VERIFIED</h2>
-  <p>
-    Este artículo pertenece a un sistema privado de autenticación.
-    Su identidad ha sido validada mediante tecnología NFC segura
-    y protocolo Cash y Calma.
-  </p>
-
-  <div class="data">
-    <div><span>ID ÚNICO</span><b id="itemId">—</b></div>
-    <div><span>ESTADO</span><b class="ok">AUTÉNTICA</b></div>
-    <div><span>PROTOCOLO</span><b>NFC · SECURE</b></div>
-    <div><span>EDICIÓN</span><b>LIMITADA</b></div>
+<div class="main">
+  <div class="video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="assets/verify.mov" type="video/mp4">
+    </video>
   </div>
-</section>
 
-<div class="mantra">
-  GET PAID · STAY CALM
+  <h1>Prenda Auténtica</h1>
+  <div class="status">Cash y Calma • Verified Original</div>
+
+  <div class="card">
+    <div class="small">Primer escaneo registrado</div>
+    <b id="scanInfo">Cargando…</b>
+  </div>
+
+  <div class="card">
+    <div class="small">Mensaje exclusivo del drop</div>
+    <b>Este diseño no se repite.</b>
+  </div>
 </div>
 
-<footer>
-  © <span id="year"></span> CASH Y CALMA — AUTH SYSTEM
-</footer>
-
-</main>
-
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
-const id = new URLSearchParams(window.location.search).get("id") || "CYC-UNKNOWN";
-document.getElementById("itemId").textContent = id;
+// 📍 Fecha + país (sin vibración, sin sonido)
+const info = document.getElementById("scanInfo");
+const date = new Date().toLocaleString();
+
+fetch("https://ipapi.co/json/")
+  .then(r=>r.json())
+  .then(d=>{
+    info.textContent = `${date} • ${d.country_name}`;
+  })
+  .catch(()=>{
+    info.textContent = date;
+  });
+
+// ✨ Partículas
+const c=document.getElementById("particles");
+const ctx=c.getContext("2d");
+function resize(){
+  c.width=innerWidth;
+  c.height=innerHeight;
+}
+resize(); addEventListener("resize",resize);
+
+const dots=[...Array(60)].map(()=>({
+  x:Math.random()*c.width,
+  y:Math.random()*c.height,
+  r:Math.random()*2,
+  v:Math.random()*0.3+0.1
+}));
+
+function draw(){
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle="rgba(167,139,250,.7)";
+  dots.forEach(d=>{
+    d.y-=d.v;
+    if(d.y<0) d.y=c.height;
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
