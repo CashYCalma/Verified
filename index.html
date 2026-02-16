@@ -121,12 +121,15 @@ canvas{
 }
 
 /* TITLES */
-h1{
-  font-size:28px;
-}
+h1{font-size:28px;}
+.status{color:#c4b5fd;}
 
-.status{
-  color:#c4b5fd;
+/* DROP NUMBER */
+.drop-number{
+  font-size:16px;
+  color:var(--purple2);
+  margin-top:5px;
+  letter-spacing:.5px;
 }
 
 /* CARD */
@@ -206,23 +209,21 @@ h1{
 
   <h1>Prenda Auténtica</h1>
   <div class="status">Verified Original • Cash y Calma</div>
-<div class="drop-number" id="dropNumber">
-  Edición Limitada • 50 Unidades
-</div>
 
+  <div class="drop-number" id="dropNumber">
+    Edición Limitada • 50 Unidades
+  </div>
 
   <div class="card">
     Primer escaneo registrado<br>
     <b id="scanInfo"></b>
   </div>
 
-  <!-- NUEVO MENSAJE -->
   <div class="social-message">
     Síguenos y comparte esta experiencia con tus amigos ✨
   </div>
 
   <div class="socials">
-
     <a href="https://instagram.com/cashycalma_" target="_blank" class="social">
       <svg viewBox="0 0 24 24">
         <path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10z"/>
@@ -240,68 +241,83 @@ h1{
         <path d="M12 2v14a4 4 0 11-4-4 4 4 0 012 0V8a8 8 0 008 8v-4a4 4 0 01-4-4V2h-2z"/>
       </svg>
     </a>
-
   </div>
 
 </div>
 
 <script>
-const info = document.getElementById("scanInfo");
-const fecha = new Date().toLocaleString();
+document.addEventListener("DOMContentLoaded", function(){
 
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    info.textContent = fecha + " • " + data.country_name;
-  })
-  .catch(() => {
-    info.textContent = fecha;
+  // ===== FECHA + PAÍS =====
+  const info = document.getElementById("scanInfo");
+
+  const fecha = new Date().toLocaleString("en-US", {
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit"
   });
 
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+  fetch("https://ipapi.co/json/")
+    .then(res=>res.json())
+    .then(data=>{
+      info.innerHTML = fecha + "<br>🌍 " + data.country_name;
+    })
+    .catch(()=>{
+      info.innerHTML = fecha + "<br>🌍 Location Secured";
+    });
 
-function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
-resize();
-addEventListener("resize", resize);
+  // ===== DROP DINÁMICO =====
+  const dropElement = document.getElementById("dropNumber");
+  const params = new URLSearchParams(window.location.search);
+  const drop = parseInt(params.get("drop"));
 
-const stars = [...Array(120)].map(() => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  r: Math.random() * 2.2,
-  v: Math.random() * 0.4 + 0.1
-}));
+  if(!isNaN(drop) && drop>=1 && drop<=50){
+    dropElement.textContent = "Esta es la prenda número " + drop + " de 50";
+  }
 
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // ===== PARTICLES =====
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
 
-  stars.forEach(s => {
-    s.y -= s.v;
-    if(s.y < 0){
-      s.y = canvas.height;
-      s.x = Math.random() * canvas.width;
-    }
+  function resize(){
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+  }
+  resize();
+  addEventListener("resize",resize);
 
-    const gradient = ctx.createRadialGradient(
-      s.x, s.y, 0,
-      s.x, s.y, s.r * 4
-    );
-    gradient.addColorStop(0, "rgba(167,139,250,1)");
-    gradient.addColorStop(1, "rgba(139,92,246,0)");
+  const stars=[...Array(120)].map(()=>({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2.2,
+    v:Math.random()*0.4+0.1
+  }));
 
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-    ctx.fill();
-  });
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s=>{
+      s.y-=s.v;
+      if(s.y<0){
+        s.y=canvas.height;
+        s.x=Math.random()*canvas.width;
+      }
+      const gradient=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*4);
+      gradient.addColorStop(0,"rgba(167,139,250,1)");
+      gradient.addColorStop(1,"rgba(139,92,246,0)");
+      ctx.fillStyle=gradient;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
 
-  requestAnimationFrame(draw);
-}
+  draw();
 
-draw();
+});
 </script>
 
 </body>
