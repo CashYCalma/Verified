@@ -45,19 +45,27 @@ canvas{
   text-align:center;
 }
 
-/* VIDEO SELLO */
+/* ESFERA */
 .video-wrap{
   width:260px;
   height:260px;
   margin:0 auto 30px;
   border-radius:50%;
   overflow:hidden;
-  box-shadow:
-    0 0 40px rgba(139,92,246,.6),
-    inset 0 0 30px rgba(255,255,255,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   position:relative;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.12), transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(139,92,246,.4), transparent 60%),
+    #0f0f15;
+  box-shadow:
+    0 0 60px rgba(139,92,246,.9),
+    inset 0 0 40px rgba(255,255,255,.25);
 }
 
+/* Pulso exterior */
 .video-wrap::after{
   content:"";
   position:absolute;
@@ -72,10 +80,21 @@ canvas{
   100%{box-shadow:0 0 40px rgba(139,92,246,0)}
 }
 
-video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* LOGO DIAMANTE */
+.logo-img{
+  width:85%;
+  max-width:230px;
+  display:block;
+  margin:auto;
+  animation:floatLogo 4s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 25px rgba(139,92,246,.9))
+    drop-shadow(0 0 50px rgba(255,255,255,.4));
+}
+
+@keyframes floatLogo{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
 }
 
 /* TEXTO */
@@ -130,10 +149,10 @@ h1{
 <div class="scan"></div>
 
 <div class="main">
+
+  <!-- ESFERA CON LOGO -->
   <div class="video-wrap">
-    <video autoplay muted loop playsinline>
-      <source src="assets/verify.mov" type="video/mp4">
-    </video>
+    <img src="assets/logo-diamond.png" class="logo-img" alt="Cash y Calma Logo">
   </div>
 
   <h1>Prenda Auténtica</h1>
@@ -148,10 +167,11 @@ h1{
     <div class="small">Mensaje exclusivo del drop</div>
     <b>Este diseño no se repite.</b>
   </div>
+
 </div>
 
 <script>
-// 📍 Fecha + país (sin vibración, sin sonido)
+// Fecha + país
 const info = document.getElementById("scanInfo");
 const date = new Date().toLocaleString();
 
@@ -164,14 +184,16 @@ fetch("https://ipapi.co/json/")
     info.textContent = date;
   });
 
-// ✨ Partículas
+// Partículas
 const c=document.getElementById("particles");
 const ctx=c.getContext("2d");
+
 function resize(){
   c.width=innerWidth;
   c.height=innerHeight;
 }
-resize(); addEventListener("resize",resize);
+resize();
+addEventListener("resize",resize);
 
 const dots=[...Array(60)].map(()=>({
   x:Math.random()*c.width,
