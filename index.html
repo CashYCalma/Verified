@@ -1,1 +1,220 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Cash y Calma — Verificación</title> <style> :root{ --purple:#8b5cf6; --purple2:#a78bfa; --bg:#050508; } html,body{ margin:0; min-height:100%; background:var(--bg); color:#fff; font-family:system-ui,Inter; overflow-x:hidden; } body{ background: radial-gradient(circle at top, rgba(139,92,246,.25), transparent 60%), var(--bg); } /* PARTICULAS */ canvas{ position:fixed; inset:0; z-index:0; pointer-events:none; } /* CONTENIDO */ .main{ position:relative; z-index:2; padding:60px 20px; max-width:420px; margin:auto; text-align:center; } /* VIDEO SELLO */ .video-wrap{ width:260px; height:260px; margin:0 auto 30px; border-radius:50%; overflow:hidden; box-shadow: 0 0 40px rgba(139,92,246,.6), inset 0 0 30px rgba(255,255,255,.2); position:relative; } .video-wrap::after{ content:""; position:absolute; inset:0; border-radius:50%; border:2px solid rgba(255,255,255,.15); animation:pulse 2.5s infinite; } @keyframes pulse{ 0%{box-shadow:0 0 0 rgba(139,92,246,.6)} 100%{box-shadow:0 0 40px rgba(139,92,246,0)} } video{ width:100%; height:100%; object-fit:cover; } /* TEXTO */ h1{ font-size:26px; margin-bottom:10px; } .status{ margin-top:10px; font-size:15px; color:#a78bfa; } .card{ margin-top:30px; padding:20px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); backdrop-filter:blur(10px); } .small{ font-size:13px; opacity:.8; } /* SCAN LINE */ .scan{ position:fixed; top:-20%; left:0; width:100%; height:2px; background:linear-gradient(90deg,transparent,var(--purple),transparent); animation:scan 4s infinite; z-index:3; pointer-events:none; } @keyframes scan{ 0%{top:-20%} 100%{top:120%} } </style> </head> <body> <canvas id="particles"></canvas> <div class="scan"></div> <div class="main"> <div class="video-wrap"> <video autoplay muted loop playsinline> <source src="assets/verify.mov" type="video/mp4"> </video> </div> <h1>Prenda Auténtica</h1> <div class="status">Cash y Calma • Verified Original</div> <div class="card"> <div class="small">Primer escaneo registrado</div> <b id="scanInfo">Cargando…</b> </div> <div class="card"> <div class="small">Mensaje exclusivo del drop</div> <b>Este diseño no se repite.</b> </div> </div> <script> // 📍 Fecha + país (sin vibración, sin sonido) const info = document.getElementById("scanInfo"); const date = new Date().toLocaleString(); fetch("https://ipapi.co/json/") .then(r=>r.json()) .then(d=>{ info.textContent = ${date} • ${d.country_name}; }) .catch(()=>{ info.textContent = date; }); // ✨ Partículas const c=document.getElementById("particles"); const ctx=c.getContext("2d"); function resize(){ c.width=innerWidth; c.height=innerHeight; } resize(); addEventListener("resize",resize); const dots=[...Array(60)].map(()=>({ x:Math.random()*c.width, y:Math.random()*c.height, r:Math.random()*2, v:Math.random()*0.3+0.1 })); function draw(){ ctx.clearRect(0,0,c.width,c.height); ctx.fillStyle="rgba(167,139,250,.7)"; dots.forEach(d=>{ d.y-=d.v; if(d.y<0) d.y=c.height; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill(); }); requestAnimationFrame(draw); } draw(); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cash y Calma — Verificación</title>
+
+<style>
+:root{
+  --purple:#8b5cf6;
+  --purple2:#a78bfa;
+  --bg:#050508;
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:#fff;
+  font-family:system-ui,Inter;
+  overflow-x:hidden;
+}
+
+body{
+  background:
+    radial-gradient(circle at top, rgba(139,92,246,.25), transparent 60%),
+    var(--bg);
+}
+
+/* PARTICULAS */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* CONTENIDO */
+.main{
+  position:relative;
+  z-index:2;
+  padding:60px 20px;
+  max-width:420px;
+  margin:auto;
+  text-align:center;
+}
+
+/* ESFERA */
+.video-wrap{
+  width:260px;
+  height:260px;
+  margin:0 auto 30px;
+  border-radius:50%;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.12), transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(139,92,246,.4), transparent 60%),
+    #0f0f15;
+  box-shadow:
+    0 0 60px rgba(139,92,246,.9),
+    inset 0 0 40px rgba(255,255,255,.25);
+}
+
+/* Pulso */
+.video-wrap::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.15);
+  animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(139,92,246,.6)}
+  100%{box-shadow:0 0 40px rgba(139,92,246,0)}
+}
+
+/* LOGO */
+.logo-img{
+  width:85%;
+  max-width:230px;
+  display:block;
+  animation:floatLogo 4s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 25px rgba(139,92,246,.9))
+    drop-shadow(0 0 50px rgba(255,255,255,.4));
+}
+
+@keyframes floatLogo{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+/* TEXTO */
+h1{
+  font-size:26px;
+  margin-bottom:10px;
+}
+
+.status{
+  margin-top:10px;
+  font-size:15px;
+  color:#a78bfa;
+}
+
+.card{
+  margin-top:30px;
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+}
+
+.small{
+  font-size:13px;
+  opacity:.8;
+}
+
+/* SCAN LINE */
+.scan{
+  position:fixed;
+  top:-20%;
+  left:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent);
+  animation:scan 4s infinite;
+  z-index:3;
+  pointer-events:none;
+}
+
+@keyframes scan{
+  0%{top:-20%}
+  100%{top:120%}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+<div class="scan"></div>
+
+<div class="main">
+
+  <!-- ESFERA CON LOGO -->
+  <div class="video-wrap">
+    <img src="logo-diamond.png" class="logo-img" alt="Cash y Calma Logo">
+  </div>
+
+  <h1>Prenda Auténtica</h1>
+  <div class="status">Cash y Calma • Verified Original</div>
+
+  <div class="card">
+    <div class="small">Primer escaneo registrado</div>
+    <b id="scanInfo">Cargando…</b>
+  </div>
+
+  <div class="card">
+    <div class="small">Mensaje exclusivo del drop</div>
+    <b>Este diseño no se repite.</b>
+  </div>
+
+</div>
+
+<script>
+// Fecha + país
+const info = document.getElementById("scanInfo");
+const date = new Date().toLocaleString();
+
+fetch("https://ipapi.co/json/")
+  .then(r=>r.json())
+  .then(d=>{
+    info.textContent = `${date} • ${d.country_name}`;
+  })
+  .catch(()=>{
+    info.textContent = date;
+  });
+
+// Partículas
+const c=document.getElementById("particles");
+const ctx=c.getContext("2d");
+
+function resize(){
+  c.width=innerWidth;
+  c.height=innerHeight;
+}
+resize();
+addEventListener("resize",resize);
+
+const dots=[...Array(60)].map(()=>({
+  x:Math.random()*c.width,
+  y:Math.random()*c.height,
+  r:Math.random()*2,
+  v:Math.random()*0.3+0.1
+}));
+
+function draw(){
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle="rgba(167,139,250,.7)";
+  dots.forEach(d=>{
+    d.y-=d.v;
+    if(d.y<0) d.y=c.height;
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
