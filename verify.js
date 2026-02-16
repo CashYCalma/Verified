@@ -29,24 +29,17 @@ document.addEventListener("DOMContentLoaded", function(){
       });
   }
 
-  // ===== DROP DINÁMICO =====
-  const dropElement = document.getElementById("dropNumber");
+ draw();
 
-  if(dropElement){
-    const params = new URLSearchParams(window.location.search);
-    const drop = parseInt(params.get("drop"));
+// ===== DROP DINÁMICO =====
+const dropElement = document.getElementById("dropNumber");
+const params = new URLSearchParams(window.location.search);
+const drop = parseInt(params.get("drop"));
 
-    if(!isNaN(drop) && drop >= 1 && drop <= 50){
+if(!isNaN(drop) && drop >= 1 && drop <= 50){
 
-      if(drop === 1){
-        dropElement.textContent = "Esta es la prenda número 1 de 50";
-      } else {
-        dropElement.textContent = "Esta es la prenda número " + drop + " de 50";
-      }
+  dropElement.textContent = "Esta es la prenda número " + drop + " de 50";
 
-    } else {
-      dropElement.textContent = "Edición Limitada • 50 Unidades";
-    }
-  }
-
-});
+} else {
+  dropElement.textContent = "Edición Limitada • 50 Unidades";
+}
