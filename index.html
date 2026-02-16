@@ -139,18 +139,17 @@ h1{
   box-shadow:0 0 40px rgba(139,92,246,.3);
 }
 
-/* SOCIAL TITLE (AGREGADO) */
-.social-title{
-  font-size:13px;
-  letter-spacing:2px;
-  color:#c4b5fd;
+/* SOCIAL MESSAGE */
+.social-message{
   margin-top:10px;
+  font-size:14px;
+  color:#c4b5fd;
+  letter-spacing:.5px;
+  animation:fadeSocial 1.5s ease forwards;
   opacity:0;
-  animation:socialFade 2s ease forwards;
-  animation-delay:1s;
 }
 
-@keyframes socialFade{
+@keyframes fadeSocial{
   to{opacity:1}
 }
 
@@ -158,7 +157,7 @@ h1{
 .socials{
   display:flex;
   gap:25px;
-  margin-top:5px;
+  margin-top:10px;
 }
 
 .social{
@@ -213,9 +212,9 @@ h1{
     <b id="scanInfo"></b>
   </div>
 
-  <!-- TEXTO AGREGADO -->
-  <div class="social-title">
-    Síguenos en redes • Comparte con tus amigos
+  <!-- NUEVO MENSAJE -->
+  <div class="social-message">
+    Síguenos y comparte esta experiencia con tus amigos ✨
   </div>
 
   <div class="socials">
@@ -254,6 +253,51 @@ fetch("https://ipapi.co/json/")
   .catch(() => {
     info.textContent = fecha;
   });
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const stars = [...Array(120)].map(() => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2.2,
+  v: Math.random() * 0.4 + 0.1
+}));
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  stars.forEach(s => {
+    s.y -= s.v;
+    if(s.y < 0){
+      s.y = canvas.height;
+      s.x = Math.random() * canvas.width;
+    }
+
+    const gradient = ctx.createRadialGradient(
+      s.x, s.y, 0,
+      s.x, s.y, s.r * 4
+    );
+    gradient.addColorStop(0, "rgba(167,139,250,1)");
+    gradient.addColorStop(1, "rgba(139,92,246,0)");
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
 </script>
 
 </body>
