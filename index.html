@@ -3,186 +3,270 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cash y Calma — Verified Original</title>
+<title>Cash y Calma — Dimensional Verified</title>
 
 <style>
 :root{
   --purple:#8b5cf6;
   --purple2:#a78bfa;
-  --bg:#050508;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(139,92,246,.4), transparent 40%),
-    radial-gradient(circle at 80% 90%, rgba(167,139,250,.2), transparent 40%),
-    #050508;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  background:#050508;
   color:#fff;
-  overflow-x:hidden;
+  overflow:hidden;
+}
+
+/* PORTAL DIMENSIONAL */
+.portal{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at center, rgba(139,92,246,.4), transparent 60%);
+  animation:portalRotate 20s linear infinite;
+  z-index:0;
+}
+
+@keyframes portalRotate{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+/* SCAN LINES SUAVES */
+.scan-overlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,.04),
+    transparent 3px
+  );
+  background-size:100% 6px;
+  pointer-events:none;
+  animation:scanFlow 8s linear infinite;
+  z-index:1;
+}
+
+@keyframes scanFlow{
+  from{background-position:0 0}
+  to{background-position:0 200px}
+}
+
+/* PARTÍCULAS */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:2;
 }
 
 /* CONTENEDOR */
 .wrap{
+  position:relative;
+  z-index:3;
   min-height:100vh;
-  max-width:420px;
-  margin:auto;
-  padding:50px 20px;
   display:flex;
   flex-direction:column;
-  gap:25px;
+  align-items:center;
+  justify-content:center;
+  gap:30px;
   text-align:center;
-  animation:fadeIn 1.2s ease forwards;
+  animation:fadeIn 1.5s ease forwards;
 }
 
 @keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* ESFERA FUTURISTA */
-.video-box{
-  width:260px;
-  height:260px;
-  margin:0 auto;
+/* ESFERA */
+.sphere{
+  width:280px;
+  height:280px;
   border-radius:50%;
-  overflow:hidden;
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
-  position:relative;
+}
+
+.sphere::before{
+  content:"";
+  position:absolute;
+  inset:-30px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(139,92,246,.5), transparent 70%);
+  animation:auraPulse 3s infinite alternate;
+}
+
+@keyframes auraPulse{
+  from{opacity:.6}
+  to{opacity:1}
+}
+
+.sphere-inner{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  overflow:hidden;
   background:#0f0f15;
-  border:1px solid rgba(255,255,255,.15);
   box-shadow:
-    0 0 80px rgba(139,92,246,1),
-    inset 0 0 60px rgba(255,255,255,.25);
-  animation:pulseGlow 3s infinite alternate;
+    0 0 120px rgba(139,92,246,1),
+    inset 0 0 80px rgba(255,255,255,.3);
+  animation:rotateSphere 15s linear infinite;
 }
 
-@keyframes pulseGlow{
-  from{box-shadow:0 0 50px rgba(139,92,246,.6);}
-  to{box-shadow:0 0 100px rgba(139,92,246,1);}
+@keyframes rotateSphere{
+  0%{transform:rotateY(0deg)}
+  100%{transform:rotateY(360deg)}
 }
 
-.video-box img{
+.sphere-inner img{
   width:100%;
   height:100%;
   object-fit:cover;
   border-radius:50%;
 }
 
-/* TITULOS */
+/* TITULO */
 h1{
-  margin:0;
-  font-size:26px;
-  letter-spacing:1px;
+  font-size:28px;
 }
 
 .status{
-  font-size:14px;
   color:#c4b5fd;
 }
 
-/* TARJETAS */
+/* TARJETA */
 .card{
-  background:rgba(0,0,0,.5);
+  background:rgba(0,0,0,.6);
   border:1px solid rgba(255,255,255,.15);
-  border-radius:18px;
-  padding:18px;
-  backdrop-filter:blur(10px);
+  padding:20px;
+  border-radius:20px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 0 50px rgba(139,92,246,.3);
 }
 
-/* REDES FUTURISTAS */
+/* REDES */
 .socials{
-  margin-top:20px;
   display:flex;
-  justify-content:center;
-  gap:18px;
+  gap:25px;
 }
 
 .social{
-  width:48px;
-  height:48px;
+  width:55px;
+  height:55px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   background:#111;
   border:1px solid rgba(255,255,255,.2);
+  animation:glowPulse 2.5s infinite alternate;
   transition:.3s;
-  animation:appear 1s ease forwards;
-  box-shadow:0 0 15px rgba(139,92,246,.6);
 }
 
-@keyframes appear{
-  from{opacity:0; transform:translateY(15px);}
-  to{opacity:1; transform:translateY(0);}
+@keyframes glowPulse{
+  from{box-shadow:0 0 20px rgba(139,92,246,.6)}
+  to{box-shadow:0 0 50px rgba(139,92,246,1)}
 }
 
 .social:hover{
-  transform:scale(1.15);
-  box-shadow:0 0 30px rgba(139,92,246,1);
+  transform:scale(1.2);
+  box-shadow:0 0 80px rgba(139,92,246,1);
 }
 
-/* ICONOS */
 .social svg{
-  width:22px;
-  height:22px;
-  fill:#8b5cf6;
+  width:24px;
+  height:24px;
+  fill:var(--purple);
 }
 </style>
 </head>
 
 <body>
 
+<div class="portal"></div>
+<div class="scan-overlay"></div>
+<canvas id="particles"></canvas>
+
 <div class="wrap">
 
-  <!-- ESFERA -->
-  <div class="video-box">
-    <img src="logo-diamond.png" alt="Cash y Calma Logo">
+  <div class="sphere">
+    <div class="sphere-inner">
+      <img src="logo-diamond.png" alt="Cash y Calma">
+    </div>
   </div>
 
   <h1>Prenda Auténtica</h1>
-  <div class="status">Verified Original • Cash y Calma</div>
+  <div class="status">Verified Original • Cash y Calma Global</div>
 
   <div class="card">
-    <div>Primer escaneo registrado</div>
-    <b id="scanInfo">Cargando...</b>
+    Primer escaneo registrado<br>
+    <b id="scanInfo"></b>
   </div>
 
-  <!-- REDES CON ICONOS -->
-<div class="socials">
+  <div class="socials">
 
-  <!-- Instagram -->
-  <a href="https://instagram.com/cashycalma_" target="_blank" class="social">
-    <svg viewBox="0 0 24 24">
-      <path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10z"/>
-    </svg>
-  </a>
+    <a href="https://instagram.com/cashycalma_" target="_blank" class="social">
+      <svg viewBox="0 0 24 24">
+        <path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10z"/>
+      </svg>
+    </a>
 
-  <!-- Facebook (ACTUALIZADO) -->
-  <a href="https://www.facebook.com/profile.php?id=61585575611570" target="_blank" class="social">
-    <svg viewBox="0 0 24 24">
-      <path d="M13 22v-9h3l1-4h-4V7c0-1 0-2 2-2h2V1h-3c-4 0-6 2-6 6v2H5v4h3v9h5z"/>
-    </svg>
-  </a>
+    <a href="https://www.facebook.com/share/1AikdyS9uj/?mibextid=wwXIfr" target="_blank" class="social">
+      <svg viewBox="0 0 24 24">
+        <path d="M13 22v-9h3l1-4h-4V7c0-1 0-2 2-2h2V1h-3c-4 0-6 2-6 6v2H5v4h3v9h5z"/>
+      </svg>
+    </a>
 
-  <!-- TikTok -->
-  <a href="https://tiktok.com/cash.y.calma" target="_blank" class="social">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 2v14a4 4 0 11-4-4 4 4 0 012 0V8a8 8 0 008 8v-4a4 4 0 01-4-4V2h-2z"/>
-    </svg>
-  </a>
+    <a href="https://tiktok.com/@cashycalma" target="_blank" class="social">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2v14a4 4 0 11-4-4 4 4 0 012 0V8a8 8 0 008 8v-4a4 4 0 01-4-4V2h-2z"/>
+      </svg>
+    </a>
+
+  </div>
 
 </div>
-
 
 <script>
 document.getElementById("scanInfo").textContent =
   new Date().toLocaleString();
+
+/* PARTÍCULAS */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+resize();
+addEventListener("resize",resize);
+
+const particles=[...Array(80)].map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2,
+  v:Math.random()*0.5+0.2
+}));
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(167,139,250,.8)";
+  particles.forEach(p=>{
+    p.y-=p.v;
+    if(p.y<0)p.y=canvas.height;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
