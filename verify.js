@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-  // ===== FECHA + PAÍS (VERSIÓN GITHUB SEGURA) =====
+  // ===== FECHA + PAÍS (IPINFO CON TOKEN) =====
 const info = document.getElementById("scanInfo");
 
 const fecha = new Date().toLocaleString("en-US", {
@@ -12,7 +12,7 @@ const fecha = new Date().toLocaleString("en-US", {
   second:"2-digit"
 });
 
-fetch("https://api.country.is/")
+fetch("https://ipinfo.io/json?token=d8db9afdda5801")
   .then(res => res.json())
   .then(data => {
 
