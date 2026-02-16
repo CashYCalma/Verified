@@ -59,10 +59,13 @@ body {
 }
 
 
-.video-box video {
+.video-box img {
   width: 100%;
-  display: block;
+  height: 100%;
+  object-fit: cover; /* Llena el círculo */
+  border-radius: 50%; /* Fuerza forma redonda */
 }
+
 
 .card {
   background: rgba(0,0,0,.45);
