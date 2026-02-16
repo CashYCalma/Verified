@@ -29,17 +29,6 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 });
-// DROP DINÁMICO PARA NFC
-const params = new URLSearchParams(window.location.search);
-const drop = params.get("drop");
-
-const dropElement = document.getElementById("dropNumber");
-
-if(drop && drop >= 1 && drop <= 50){
-  dropElement.textContent = "Drop 01 • " + drop + " of 50";
-} else {
-  dropElement.textContent = "Drop 01 • Limited Edition";
-}
 // NUMERO DE PRENDA DINÁMICO
 const params = new URLSearchParams(window.location.search);
 const drop = params.get("drop");
