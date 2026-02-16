@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-  // ===== FECHA + PAÍS (IPINFO CON TOKEN) =====
+// ===== FECHA + PAÍS (VERSIÓN QUE SÍ FUNCIONA) =====
 const info = document.getElementById("scanInfo");
 
 const fecha = new Date().toLocaleString("en-US", {
@@ -12,19 +12,15 @@ const fecha = new Date().toLocaleString("en-US", {
   second:"2-digit"
 });
 
-fetch("https://ipinfo.io/json?token=d8db9afdda5801")
-  .then(res => res.json())
-  .then(data => {
-
-    const regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
-    const countryName = regionNames.of(data.country);
-
-    info.innerHTML = fecha + "<br>🌍 " + countryName;
-
+fetch("https://ipapi.co/country_name/")
+  .then(res => res.text())
+  .then(country => {
+    info.innerHTML = fecha + "<br>🌍 " + country;
   })
   .catch(() => {
     info.innerHTML = fecha + "<br>🌍 Verified Location";
   });
+
 
 
   // ===== DROP DINÁMICO =====
