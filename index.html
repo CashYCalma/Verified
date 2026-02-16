@@ -3,159 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cash y Calma — Verified Ultra</title>
+<title>Cash y Calma — Verified Original</title>
 
 <style>
 :root{
   --purple:#8b5cf6;
   --purple2:#a78bfa;
+  --bg:#050508;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box}
 
 body{
-  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
   background:
-    radial-gradient(circle at 30% 20%, rgba(139,92,246,.4), transparent 40%),
-    radial-gradient(circle at 80% 90%, rgba(167,139,250,.3), transparent 40%),
+    radial-gradient(circle at 20% 10%, rgba(139,92,246,.4), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(167,139,250,.2), transparent 40%),
     #050508;
   color:#fff;
-  overflow:hidden;
-}
-
-/* SCAN LINES */
-.scan-line{
-  position:fixed;
-  top:-10%;
-  left:0;
-  width:100%;
-  height:3px;
-  background:linear-gradient(90deg,transparent,var(--purple),transparent);
-  animation:scan 3s linear infinite;
-  z-index:5;
-}
-
-@keyframes scan{
-  from{top:-10%}
-  to{top:110%}
+  overflow-x:hidden;
 }
 
 /* CONTENEDOR */
 .wrap{
   min-height:100vh;
+  max-width:420px;
+  margin:auto;
+  padding:50px 20px;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  justify-content:center;
   gap:25px;
   text-align:center;
-  animation:fadeIn 1.5s ease forwards;
+  animation:fadeIn 1.2s ease forwards;
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-/* ESFERA 3D */
-.sphere{
-  width:280px;
-  height:280px;
+/* ESFERA FUTURISTA */
+.video-box{
+  width:260px;
+  height:260px;
+  margin:0 auto;
   border-radius:50%;
+  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
-  perspective:1000px;
-  animation:rotateSphere 10s linear infinite;
-}
-
-@keyframes rotateSphere{
-  0%{transform:rotateY(0deg) rotateX(0deg)}
-  50%{transform:rotateY(180deg) rotateX(10deg)}
-  100%{transform:rotateY(360deg) rotateX(0deg)}
-}
-
-.sphere-inner{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  overflow:hidden;
+  background:#0f0f15;
+  border:1px solid rgba(255,255,255,.15);
   box-shadow:
     0 0 80px rgba(139,92,246,1),
-    inset 0 0 60px rgba(255,255,255,.3);
-  background:#0f0f15;
-  position:relative;
+    inset 0 0 60px rgba(255,255,255,.25);
+  animation:pulseGlow 3s infinite alternate;
 }
 
-/* LOGO */
-.sphere-inner img{
+@keyframes pulseGlow{
+  from{box-shadow:0 0 50px rgba(139,92,246,.6);}
+  to{box-shadow:0 0 100px rgba(139,92,246,1);}
+}
+
+.video-box img{
   width:100%;
   height:100%;
   object-fit:cover;
   border-radius:50%;
 }
 
-/* SPARKLES */
-.sparkle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:white;
-  border-radius:50%;
-  box-shadow:0 0 10px white;
-  animation:sparkleAnim 2s infinite alternate;
-}
-
-@keyframes sparkleAnim{
-  from{opacity:.3;transform:scale(.8)}
-  to{opacity:1;transform:scale(1.5)}
-}
-
-/* TITULO */
+/* TITULOS */
 h1{
+  margin:0;
   font-size:26px;
   letter-spacing:1px;
 }
 
 .status{
-  color:#c4b5fd;
   font-size:14px;
+  color:#c4b5fd;
 }
 
-/* TARJETA */
+/* TARJETAS */
 .card{
   background:rgba(0,0,0,.5);
   border:1px solid rgba(255,255,255,.15);
-  padding:18px;
   border-radius:18px;
+  padding:18px;
   backdrop-filter:blur(10px);
 }
 
-/* REDES */
+/* REDES FUTURISTAS */
 .socials{
+  margin-top:20px;
   display:flex;
-  gap:20px;
+  justify-content:center;
+  gap:18px;
 }
 
 .social{
-  width:50px;
-  height:50px;
+  width:48px;
+  height:48px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   background:#111;
   border:1px solid rgba(255,255,255,.2);
-  box-shadow:0 0 20px rgba(139,92,246,.8);
   transition:.3s;
+  animation:appear 1s ease forwards;
+  box-shadow:0 0 15px rgba(139,92,246,.6);
+}
+
+@keyframes appear{
+  from{opacity:0; transform:translateY(15px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 .social:hover{
-  transform:scale(1.2);
-  box-shadow:0 0 40px rgba(139,92,246,1);
+  transform:scale(1.15);
+  box-shadow:0 0 30px rgba(139,92,246,1);
 }
 
+/* ICONOS */
 .social svg{
   width:22px;
   height:22px;
@@ -166,45 +138,39 @@ h1{
 
 <body>
 
-<div class="scan-line"></div>
-
 <div class="wrap">
 
-  <!-- ESFERA 3D -->
-  <div class="sphere">
-    <div class="sphere-inner">
-      <img src="logo-diamond.png" alt="Cash y Calma">
-
-      <!-- Sparkles -->
-      <div class="sparkle" style="top:20%; left:15%;"></div>
-      <div class="sparkle" style="top:70%; left:80%; animation-delay:1s;"></div>
-      <div class="sparkle" style="top:40%; left:60%; animation-delay:.5s;"></div>
-    </div>
+  <!-- ESFERA -->
+  <div class="video-box">
+    <img src="logo-diamond.png" alt="Cash y Calma Logo">
   </div>
 
   <h1>Prenda Auténtica</h1>
   <div class="status">Verified Original • Cash y Calma</div>
 
   <div class="card">
-    Primer escaneo registrado<br>
-    <b id="scanInfo"></b>
+    <div>Primer escaneo registrado</div>
+    <b id="scanInfo">Cargando...</b>
   </div>
 
-  <!-- REDES -->
+  <!-- REDES CON ICONOS -->
   <div class="socials">
 
+    <!-- Instagram -->
     <a href="https://instagram.com/cashycalma_" target="_blank" class="social">
       <svg viewBox="0 0 24 24">
-        <path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10z"/>
+        <path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10zm6-1a1 1 0 110 2 1 1 0 010-2z"/>
       </svg>
     </a>
 
+    <!-- Facebook -->
     <a href="https://facebook.com/cashycalma" target="_blank" class="social">
       <svg viewBox="0 0 24 24">
         <path d="M13 22v-9h3l1-4h-4V7c0-1 0-2 2-2h2V1h-3c-4 0-6 2-6 6v2H5v4h3v9h5z"/>
       </svg>
     </a>
 
+    <!-- TikTok -->
     <a href="https://tiktok.com/@cashycalma" target="_blank" class="social">
       <svg viewBox="0 0 24 24">
         <path d="M12 2v14a4 4 0 11-4-4 4 4 0 012 0V8a8 8 0 008 8v-4a4 4 0 01-4-4V2h-2z"/>
