@@ -142,3 +142,11 @@ footer {
   font-weight:600;
   text-transform:uppercase;
 }
+.drop-number{
+  font-size:14px;
+  margin-top:8px;
+  letter-spacing:1px;
+  color:#c4b5fd;
+  font-weight:600;
+}
+
