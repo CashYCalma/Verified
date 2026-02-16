@@ -1,33 +1,31 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-  // ===== FECHA + PAÍS =====
-  const info = document.getElementById("scanInfo");
+  // ===== FECHA + PAÍS (VERSIÓN GITHUB SEGURA) =====
+const info = document.getElementById("scanInfo");
 
-  if(info){
-    const fecha = new Date().toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
+const fecha = new Date().toLocaleString("en-US", {
+  year:"numeric",
+  month:"long",
+  day:"numeric",
+  hour:"2-digit",
+  minute:"2-digit",
+  second:"2-digit"
+});
 
-    fetch("https://ipwho.is/")
-      .then(res => res.json())
-      .then(data => {
-        info.innerHTML = `
-          ${fecha}<br>
-          🌍 ${data.country_name}
-        `;
-      })
-      .catch(() => {
-        info.innerHTML = `
-          ${fecha}<br>
-          🌍 Location Secured
-        `;
-      });
-  }
+fetch("https://api.country.is/")
+  .then(res => res.json())
+  .then(data => {
+
+    const regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+    const countryName = regionNames.of(data.country);
+
+    info.innerHTML = fecha + "<br>🌍 " + countryName;
+
+  })
+  .catch(() => {
+    info.innerHTML = fecha + "<br>🌍 Verified Location";
+  });
+
 
   // ===== DROP DINÁMICO =====
   const dropElement = document.getElementById("dropNumber");
