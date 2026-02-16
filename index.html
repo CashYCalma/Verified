@@ -228,65 +228,49 @@ h1{
 </div>
 
 <script>
-/* FECHA + PAÍS */
-const info = document.getElementById("scanInfo");
-const fecha = new Date().toLocaleString();
+document.addEventListener("DOMContentLoaded", function(){
 
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    info.textContent = fecha + " • " + data.country_name;
-  })
-  .catch(() => {
-    info.textContent = fecha;
+  const info = document.getElementById("scanInfo");
+
+  if(!info){
+    console.log("scanInfo no encontrado");
+    return;
+  }
+
+  const fecha = new Date().toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
   });
 
-/* GALAXY PARTICLES */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+  info.textContent = fecha + " • Detecting location...";
 
-function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
-resize();
-addEventListener("resize", resize);
+  fetch("https://ipwho.is/")
+    .then(res => res.json())
+    .then(data => {
 
-const stars = [...Array(120)].map(() => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  r: Math.random() * 2.2,
-  v: Math.random() * 0.4 + 0.1
-}));
+      if(data.success === false){
+        info.textContent = fecha + " • Location Secured";
+        return;
+      }
 
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+      info.textContent = fecha + " • " + data.country;
 
-  stars.forEach(s => {
-    s.y -= s.v;
-    if(s.y < 0){
-      s.y = canvas.height;
-      s.x = Math.random() * canvas.width;
-    }
+    })
+    .catch(err => {
+      console.log("Error API:", err);
+      info.textContent = fecha + " • Location Secured";
+    });
 
-    const gradient = ctx.createRadialGradient(
-      s.x, s.y, 0,
-      s.x, s.y, s.r * 4
-    );
-    gradient.addColorStop(0, "rgba(167,139,250,1)");
-    gradient.addColorStop(1, "rgba(139,92,246,0)");
-
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(draw);
-}
-
-draw();
+});
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
