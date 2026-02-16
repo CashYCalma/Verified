@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
       second: "2-digit"
     });
 
-    fetch("https://ipapi.co/json/")
+    fetch("https://ipwho.is/")
       .then(res => res.json())
       .then(data => {
         info.innerHTML = `
