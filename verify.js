@@ -29,26 +29,21 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 });
-// DROP DINÁMICO 100% FUNCIONAL
-document.addEventListener("DOMContentLoaded", function(){
+// ===== DROP DINÁMICO =====
+const dropElement = document.getElementById("dropNumber");
 
-  const dropElement = document.getElementById("dropNumber");
-  if(!dropElement) return;
+const params = new URLSearchParams(window.location.search);
+const drop = parseInt(params.get("drop"));
 
-  const params = new URLSearchParams(window.location.search);
-  const drop = parseInt(params.get("drop"));
+if(!isNaN(drop) && drop >= 1 && drop <= 50){
 
-  if(!isNaN(drop) && drop >= 1 && drop <= 50){
-
-    if(drop === 1){
-      dropElement.textContent = drop + " de 50 unidades";
-    } else {
-      dropElement.textContent = drop + " de 50 prendas";
-    }
-
+  if(drop === 1){
+    dropElement.textContent = "Esta es la prenda número 1 de 50";
   } else {
-    dropElement.textContent = "Edición Limitada • 50 Unidades";
+    dropElement.textContent = "Esta es la prenda número " + drop + " de 50";
   }
 
-});
+} else {
+  dropElement.textContent = "Edición Limitada • 50 Unidades";
+}
 
