@@ -41,8 +41,8 @@ body {
   width: 260px;
   height: 260px;
   margin: 0 auto;
-  border-radius: 50%; 
-  overflow: hidden; 
+  border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,14 +53,14 @@ body {
     inset 0 0 40px rgba(255,255,255,.25);
 }
 
-/* IMAGEN DENTRO DE LA ESFERA */
+/* IMAGEN LLENA COMPLETAMENTE EL CÍRCULO */
 .video-box img {
-  width: 140%;
-  height: 140%;
-  object-fit: contain;
-  transform: scale(1.1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* Recorta automáticamente */
+  border-radius: 50%;    /* Fuerza círculo perfecto */
+  display: block;
 }
-
 
 /* TARJETA */
 .card {
