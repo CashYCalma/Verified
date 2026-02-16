@@ -29,14 +29,25 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 });
-// NUMERO DE PRENDA DINÁMICO
-const params = new URLSearchParams(window.location.search);
-const drop = params.get("drop");
+// DROP DINÁMICO 100% FUNCIONAL
+document.addEventListener("DOMContentLoaded", function(){
 
-const dropElement = document.getElementById("dropNumber");
+  const dropElement = document.getElementById("dropNumber");
+  if(!dropElement) return;
 
-if(drop && drop >= 1 && drop <= 50){
-  dropElement.textContent = "Esta es la prenda número " + drop + " de 50";
-} else {
-  dropElement.textContent = "Edición Limitada • 50 Unidades";
-}
+  const params = new URLSearchParams(window.location.search);
+  const drop = parseInt(params.get("drop"));
+
+  if(!isNaN(drop) && drop >= 1 && drop <= 50){
+
+    if(drop === 1){
+      dropElement.textContent = drop + " de 50 unidades";
+    } else {
+      dropElement.textContent = drop + " de 50 prendas";
+    }
+
+  } else {
+    dropElement.textContent = "Edición Limitada • 50 Unidades";
+  }
+
+});
