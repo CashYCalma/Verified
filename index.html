@@ -139,11 +139,26 @@ h1{
   box-shadow:0 0 40px rgba(139,92,246,.3);
 }
 
+/* SOCIAL TITLE (AGREGADO) */
+.social-title{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#c4b5fd;
+  margin-top:10px;
+  opacity:0;
+  animation:socialFade 2s ease forwards;
+  animation-delay:1s;
+}
+
+@keyframes socialFade{
+  to{opacity:1}
+}
+
 /* SOCIALS */
 .socials{
   display:flex;
   gap:25px;
-  margin-top:10px;
+  margin-top:5px;
 }
 
 .social{
@@ -179,11 +194,6 @@ h1{
 
 <body>
 
-<!-- Cinematic Intro CORRECTAMENTE colocado -->
-<div class="cinematic-intro">
-  <div class="cinematic-line"></div>
-</div>
-
 <div class="scan-overlay"></div>
 <canvas id="particles"></canvas>
 
@@ -201,6 +211,11 @@ h1{
   <div class="card">
     Primer escaneo registrado<br>
     <b id="scanInfo"></b>
+  </div>
+
+  <!-- TEXTO AGREGADO -->
+  <div class="social-title">
+    Síguenos en redes • Comparte con tus amigos
   </div>
 
   <div class="socials">
@@ -228,7 +243,6 @@ h1{
 </div>
 
 <script>
-/* FECHA + PAÍS */
 const info = document.getElementById("scanInfo");
 const fecha = new Date().toLocaleString();
 
@@ -240,52 +254,6 @@ fetch("https://ipapi.co/json/")
   .catch(() => {
     info.textContent = fecha;
   });
-
-/* GALAXY PARTICLES */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
-resize();
-addEventListener("resize", resize);
-
-const stars = [...Array(120)].map(() => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  r: Math.random() * 2.2,
-  v: Math.random() * 0.4 + 0.1
-}));
-
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  stars.forEach(s => {
-    s.y -= s.v;
-    if(s.y < 0){
-      s.y = canvas.height;
-      s.x = Math.random() * canvas.width;
-    }
-
-    const gradient = ctx.createRadialGradient(
-      s.x, s.y, 0,
-      s.x, s.y, s.r * 4
-    );
-    gradient.addColorStop(0, "rgba(167,139,250,1)");
-    gradient.addColorStop(1, "rgba(139,92,246,0)");
-
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(draw);
-}
-
-draw();
 </script>
 
 </body>
