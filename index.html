@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cash y Calma — Luxury Drop</title>
+<title>Cash y Calma — Galaxy Verified</title>
 
 <style>
 :root{
   --purple:#8b5cf6;
+  --purple2:#a78bfa;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,56 +20,64 @@ body{
   overflow:hidden;
 }
 
-/* CINEMATIC OPEN */
-.cinematic{
+/* GALAXY BACKGROUND */
+body::before{
+  content:"";
   position:fixed;
   inset:0;
-  background:#000;
-  z-index:100;
-  animation:cinematicOpen 2s ease forwards;
-}
-
-@keyframes cinematicOpen{
-  0%{opacity:1}
-  80%{opacity:1}
-  100%{opacity:0; visibility:hidden}
-}
-
-/* PORTAL SUAVE */
-.portal{
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at center, rgba(139,92,246,.35), transparent 60%);
-  animation:pulse 6s infinite alternate;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(139,92,246,.35), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(167,139,250,.25), transparent 50%);
   z-index:0;
+  animation:galaxyPulse 10s ease-in-out infinite alternate;
 }
 
-@keyframes pulse{
+@keyframes galaxyPulse{
   from{opacity:.6}
   to{opacity:1}
 }
 
-/* CONTENEDOR */
+/* SCAN LINES */
+.scan-overlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,.03),
+    transparent 3px
+  );
+  background-size:100% 6px;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* PARTICLES CANVAS */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:2;
+}
+
+/* CONTENT WRAP */
 .wrap{
   position:relative;
-  z-index:2;
+  z-index:3;
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:20px;
+  gap:25px;
   text-align:center;
-  opacity:0;
-  animation:fadeIn 1.5s ease forwards;
-  animation-delay:1.8s;
+  animation:fadeIn 1.2s ease forwards;
 }
 
 @keyframes fadeIn{
-  to{opacity:1}
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* ESFERA */
+/* SPHERE */
 .sphere{
   width:280px;
   height:280px;
@@ -85,10 +94,10 @@ body{
   inset:-25px;
   border-radius:50%;
   background:radial-gradient(circle, rgba(139,92,246,.5), transparent 70%);
-  animation:aura 3s infinite alternate;
+  animation:auraPulse 3s ease-in-out infinite alternate;
 }
 
-@keyframes aura{
+@keyframes auraPulse{
   from{opacity:.6}
   to{opacity:1}
 }
@@ -101,7 +110,7 @@ body{
   background:#0f0f15;
   box-shadow:
     0 0 120px rgba(139,92,246,1),
-    inset 0 0 80px rgba(255,255,255,.2);
+    inset 0 0 80px rgba(255,255,255,.25);
 }
 
 .sphere-inner img{
@@ -111,53 +120,26 @@ body{
   border-radius:50%;
 }
 
-/* FRASE ANIMADA */
-.tagline{
-  font-size:14px;
-  letter-spacing:3px;
+/* TITLES */
+h1{
+  font-size:28px;
+}
+
+.status{
   color:#c4b5fd;
-  opacity:0;
-  animation:fadeTag 2s ease forwards;
-  animation-delay:2.5s;
 }
 
-@keyframes fadeTag{
-  to{opacity:1}
-}
-
-/* DROP METALICO */
-.drop{
-  font-weight:900;
-  font-size:16px;
-  letter-spacing:2px;
-  background:linear-gradient(
-    90deg,
-    #fff,
-    #d4d4d4,
-    #a1a1aa,
-    #fff
-  );
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:metalShine 3s linear infinite;
-}
-
-@keyframes metalShine{
-  to{background-position:200% center}
-}
-
-/* TARJETA */
+/* CARD */
 .card{
   background:rgba(0,0,0,.6);
   border:1px solid rgba(255,255,255,.15);
-  padding:18px;
+  padding:20px;
   border-radius:20px;
   backdrop-filter:blur(15px);
   box-shadow:0 0 40px rgba(139,92,246,.3);
 }
 
-/* REDES */
+/* SOCIALS */
 .socials{
   display:flex;
   gap:25px;
@@ -173,11 +155,11 @@ body{
   justify-content:center;
   background:#111;
   border:1px solid rgba(255,255,255,.2);
-  animation:glow 2.5s infinite alternate;
+  animation:glowPulse 2.5s ease-in-out infinite alternate;
   transition:.3s;
 }
 
-@keyframes glow{
+@keyframes glowPulse{
   from{box-shadow:0 0 20px rgba(139,92,246,.6)}
   to{box-shadow:0 0 50px rgba(139,92,246,1)}
 }
@@ -197,8 +179,8 @@ body{
 
 <body>
 
-<div class="cinematic"></div>
-<div class="portal"></div>
+<div class="scan-overlay"></div>
+<canvas id="particles"></canvas>
 
 <div class="wrap">
 
@@ -208,11 +190,8 @@ body{
     </div>
   </div>
 
-  <!-- FRASE ANIMADA -->
-  <div class="tagline">GET PAID • STAY CALM</div>
-
-  <!-- DROP METÁLICO -->
-  <div class="drop">Drop 01 • 1 of 50</div>
+  <h1>Prenda Auténtica</h1>
+  <div class="status">Verified Original • Cash y Calma</div>
 
   <div class="card">
     Primer escaneo registrado<br>
@@ -244,8 +223,64 @@ body{
 </div>
 
 <script>
-document.getElementById("scanInfo").textContent =
-  new Date().toLocaleString();
+/* FECHA + PAÍS */
+const info = document.getElementById("scanInfo");
+const fecha = new Date().toLocaleString();
+
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    info.textContent = fecha + " • " + data.country_name;
+  })
+  .catch(() => {
+    info.textContent = fecha;
+  });
+
+/* GALAXY PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const stars = [...Array(120)].map(() => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2.2,
+  v: Math.random() * 0.4 + 0.1
+}));
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  stars.forEach(s => {
+    s.y -= s.v;
+    if(s.y < 0){
+      s.y = canvas.height;
+      s.x = Math.random() * canvas.width;
+    }
+
+    const gradient = ctx.createRadialGradient(
+      s.x, s.y, 0,
+      s.x, s.y, s.r * 4
+    );
+    gradient.addColorStop(0, "rgba(167,139,250,1)");
+    gradient.addColorStop(1, "rgba(139,92,246,0)");
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
 </script>
 
 </body>
