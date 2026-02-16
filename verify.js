@@ -40,3 +40,14 @@ if(drop && drop >= 1 && drop <= 50){
 } else {
   dropElement.textContent = "Drop 01 • Limited Edition";
 }
+// NUMERO DE PRENDA DINÁMICO
+const params = new URLSearchParams(window.location.search);
+const drop = params.get("drop");
+
+const dropElement = document.getElementById("dropNumber");
+
+if(drop && drop >= 1 && drop <= 50){
+  dropElement.textContent = "Esta es la prenda número " + drop + " de 50";
+} else {
+  dropElement.textContent = "Edición Limitada • 50 Unidades";
+}
