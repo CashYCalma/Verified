@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cash y Calma — Verified</title>
+<title>Cash y Calma — Luxury Drop</title>
 
 <style>
 :root{
   --purple:#8b5cf6;
-  --purple2:#a78bfa;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -20,62 +19,56 @@ body{
   overflow:hidden;
 }
 
+/* CINEMATIC OPEN */
+.cinematic{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:100;
+  animation:cinematicOpen 2s ease forwards;
+}
+
+@keyframes cinematicOpen{
+  0%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0; visibility:hidden}
+}
+
 /* PORTAL SUAVE */
 .portal{
   position:fixed;
   inset:0;
-  background:
-    radial-gradient(circle at center, rgba(139,92,246,.35), transparent 60%);
-  animation:portalPulse 6s ease-in-out infinite alternate;
+  background:radial-gradient(circle at center, rgba(139,92,246,.35), transparent 60%);
+  animation:pulse 6s infinite alternate;
   z-index:0;
 }
 
-@keyframes portalPulse{
+@keyframes pulse{
   from{opacity:.6}
   to{opacity:1}
-}
-
-/* SCAN LINES ELEGANTES */
-.scan-overlay{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(255,255,255,.03),
-    transparent 3px
-  );
-  background-size:100% 6px;
-  pointer-events:none;
-  z-index:1;
-}
-
-/* PARTÍCULAS */
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:2;
 }
 
 /* CONTENEDOR */
 .wrap{
   position:relative;
-  z-index:3;
+  z-index:2;
   min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:30px;
+  gap:20px;
   text-align:center;
-  animation:fadeIn 1.2s ease forwards;
+  opacity:0;
+  animation:fadeIn 1.5s ease forwards;
+  animation-delay:1.8s;
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
+  to{opacity:1}
 }
 
-/* ESFERA ESTÉTICA (SIN GIRO) */
+/* ESFERA */
 .sphere{
   width:280px;
   height:280px;
@@ -92,10 +85,10 @@ canvas{
   inset:-25px;
   border-radius:50%;
   background:radial-gradient(circle, rgba(139,92,246,.5), transparent 70%);
-  animation:auraPulse 3s ease-in-out infinite alternate;
+  animation:aura 3s infinite alternate;
 }
 
-@keyframes auraPulse{
+@keyframes aura{
   from{opacity:.6}
   to{opacity:1}
 }
@@ -108,7 +101,7 @@ canvas{
   background:#0f0f15;
   box-shadow:
     0 0 120px rgba(139,92,246,1),
-    inset 0 0 80px rgba(255,255,255,.25);
+    inset 0 0 80px rgba(255,255,255,.2);
 }
 
 .sphere-inner img{
@@ -118,20 +111,47 @@ canvas{
   border-radius:50%;
 }
 
-/* TITULOS */
-h1{
-  font-size:28px;
+/* FRASE ANIMADA */
+.tagline{
+  font-size:14px;
+  letter-spacing:3px;
+  color:#c4b5fd;
+  opacity:0;
+  animation:fadeTag 2s ease forwards;
+  animation-delay:2.5s;
 }
 
-.status{
-  color:#c4b5fd;
+@keyframes fadeTag{
+  to{opacity:1}
+}
+
+/* DROP METALICO */
+.drop{
+  font-weight:900;
+  font-size:16px;
+  letter-spacing:2px;
+  background:linear-gradient(
+    90deg,
+    #fff,
+    #d4d4d4,
+    #a1a1aa,
+    #fff
+  );
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:metalShine 3s linear infinite;
+}
+
+@keyframes metalShine{
+  to{background-position:200% center}
 }
 
 /* TARJETA */
 .card{
   background:rgba(0,0,0,.6);
   border:1px solid rgba(255,255,255,.15);
-  padding:20px;
+  padding:18px;
   border-radius:20px;
   backdrop-filter:blur(15px);
   box-shadow:0 0 40px rgba(139,92,246,.3);
@@ -141,6 +161,7 @@ h1{
 .socials{
   display:flex;
   gap:25px;
+  margin-top:10px;
 }
 
 .social{
@@ -152,11 +173,11 @@ h1{
   justify-content:center;
   background:#111;
   border:1px solid rgba(255,255,255,.2);
-  animation:glowPulse 2.5s ease-in-out infinite alternate;
+  animation:glow 2.5s infinite alternate;
   transition:.3s;
 }
 
-@keyframes glowPulse{
+@keyframes glow{
   from{box-shadow:0 0 20px rgba(139,92,246,.6)}
   to{box-shadow:0 0 50px rgba(139,92,246,1)}
 }
@@ -176,9 +197,8 @@ h1{
 
 <body>
 
+<div class="cinematic"></div>
 <div class="portal"></div>
-<div class="scan-overlay"></div>
-<canvas id="particles"></canvas>
 
 <div class="wrap">
 
@@ -188,8 +208,11 @@ h1{
     </div>
   </div>
 
-  <h1>Prenda Auténtica</h1>
-  <div class="status">Verified Original • Cash y Calma</div>
+  <!-- FRASE ANIMADA -->
+  <div class="tagline">GET PAID • STAY CALM</div>
+
+  <!-- DROP METÁLICO -->
+  <div class="drop">Drop 01 • 1 of 50</div>
 
   <div class="card">
     Primer escaneo registrado<br>
@@ -223,38 +246,6 @@ h1{
 <script>
 document.getElementById("scanInfo").textContent =
   new Date().toLocaleString();
-
-/* PARTÍCULAS */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-  canvas.width=innerWidth;
-  canvas.height=innerHeight;
-}
-resize();
-addEventListener("resize",resize);
-
-const particles=[...Array(70)].map(()=>({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:Math.random()*2,
-  v:Math.random()*0.3+0.1
-}));
-
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="rgba(167,139,250,.8)";
-  particles.forEach(p=>{
-    p.y-=p.v;
-    if(p.y<0)p.y=canvas.height;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(draw);
-}
-draw();
 </script>
 
 </body>
