@@ -96,6 +96,35 @@ body {
   color: #22c55e;
   font-weight: 700;
 }
+/* CINEMATIC INTRO */
+.cinematic-intro{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:introFade 2.5s ease forwards;
+}
+
+@keyframes introFade{
+  0%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0; visibility:hidden}
+}
+
+.cinematic-line{
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent);
+  animation:lineSweep 1.8s ease forwards;
+}
+
+@keyframes lineSweep{
+  0%{width:0}
+  100%{width:100vw}
+}
 
 footer {
   margin-top: auto;
